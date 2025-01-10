@@ -11,6 +11,23 @@ public partial class Form1 : Form
 {
     public Form1()
     {
+        // This call is required by the designer.
         InitializeComponent();
+
+        // Add any initialization after the InitializeComponent() call.
+        LoadData();
+    }
+
+    private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+        // after some line of code with careful consideration reload the data
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        DataGridView1.Rows.Clear(); // remove the Clear command and everything works
+        DataGridView1.Rows.Add(1, 0, "ABC");
+        DataGridView1.Rows.Add(2, 0, "DEF");
     }
 }

@@ -353,7 +353,7 @@ public unsafe partial class NativeWindow : MarshalByRefObject, IWin32Window, IHa
             else
             {
                 DefWndProc(ref m);
-            }
+            }c
         }
         catch (Exception e)
         {
