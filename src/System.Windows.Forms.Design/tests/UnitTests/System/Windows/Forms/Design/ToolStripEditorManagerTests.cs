@@ -73,27 +73,27 @@ public sealed class ToolStripEditorManagerTests : IDisposable
         designerHost.Should().Be(_mockDesignerHost.Object);
     }
 
-    [Fact]
+    [WinFormsFact]
     public void ActivateEditor_ShouldNotAddNewEditor_WhenItemIsNull()
     {
-        Action act = () => _editorManager.ActivateEditor(null);
-        act.Should().NotThrow();
+        Action action = () => _editorManager.ActivateEditor(null);
+        action.Should().NotThrow();
     }
 
-    [Fact]
+    [WinFormsFact]
     public void ActivateEditor_ShouldReturn_WhenItemIsSameAsCurrentItem()
     {
         _editorManager.TestAccessor().Dynamic._behaviorService = _behaviorService;
         _editorManager.TestAccessor().Dynamic._currentItem = _toolStripItem;
 
-        Action act = () => _editorManager.ActivateEditor(_toolStripItem);
-        act.Should().NotThrow();
+        Action action = () => _editorManager.ActivateEditor(_toolStripItem);
+        action.Should().NotThrow();
 
         ToolStripItem currentItem = _editorManager.TestAccessor().Dynamic._currentItem;
         currentItem.Should().Be(_toolStripItem);
     }
 
-    [Fact]
+    [WinFormsFact]
     public void ActivateEditor_ShouldDeactivateCurrentEditor_WhenEditorIsNotNull()
     {
         _editorManager.TestAccessor().Dynamic._behaviorService = _behaviorService;
@@ -118,7 +118,7 @@ public sealed class ToolStripEditorManagerTests : IDisposable
         isEditorActive.Should().BeFalse();
     }
 
-    [Fact]
+    [WinFormsFact]
     public void ActivateEditor_ShouldAddNewEditor_WhenItemIsNotNull()
     {
         Mock<ToolStrip> mockToolStrip = new();
@@ -157,11 +157,11 @@ public sealed class ToolStripEditorManagerTests : IDisposable
     [Fact]
     public void CloseManager_ShouldNotThrowException()
     {
-        Action act = ToolStripEditorManager.CloseManager;
-        act.Should().NotThrow();
+        Action action = ToolStripEditorManager.CloseManager;
+        action.Should().NotThrow();
     }
 
-    [Fact]
+    [WinFormsFact]
     public void OnEditorResize_ShouldInvalidateAndUpdateBounds()
     {
         _editorManager.TestAccessor().Dynamic._editor = _toolStripEditorControl!;
@@ -188,12 +188,13 @@ public sealed class ToolStripEditorManagerTests : IDisposable
         propertyValue.Should().Be(expectedValue);
     }
 
-    [Fact]
+    [WinFormsFact]
     public void ToolStripEditorControl_Bounds1_Setter_UpdatesBounds()
     {
         Rectangle newBounds = new(30, 40, 150, 250);
         PropertyInfo? boundsProperty = _toolStripEditorControlType?.GetProperty("Bounds1");
 
+        boundsProperty.Should().NotBeNull();
         if (boundsProperty is not null)
         {
             boundsProperty.SetValue(_toolStripEditorControl, newBounds);
